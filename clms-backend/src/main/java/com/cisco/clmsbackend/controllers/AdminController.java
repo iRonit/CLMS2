@@ -55,7 +55,7 @@ public class AdminController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateUserLeaveAdmin(@PathVariable final String id,
+	public ResponseEntity<UserLeave> updateUserLeaveAdmin(@PathVariable final String id,
 			@Valid @RequestBody UserLeave userLeave) throws JsonProcessingException {
 		UserLeave ul = userLeaveService.findUserLeaveById(Long.parseLong(id));
 		if (ul == null)
@@ -69,7 +69,7 @@ public class AdminController {
 		ul.setStatus(incomingStatus);
 		ul.setRemark(incomingRemark);
 		userLeaveService.saveUserLeave(ul);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(ul);
 	}
 
 }
