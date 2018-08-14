@@ -1,5 +1,5 @@
 package com.cisco.clmsbackend.configurations;
-
+/*
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,4 +67,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
 	}
 
-}
+}*/
