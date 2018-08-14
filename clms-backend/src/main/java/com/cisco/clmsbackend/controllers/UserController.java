@@ -67,7 +67,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> removeUserLeave(@PathVariable final String id) {
+	public ResponseEntity<?> removeUserLeave(@PathVariable final String id) {
 		if(userLeaveService.findUserLeaveById(Long.parseLong(id)).getStatus() == LeaveStatus.PENDING)
 			userLeaveService.deleteUserLeaveById(Long.parseLong(id));
 		else
