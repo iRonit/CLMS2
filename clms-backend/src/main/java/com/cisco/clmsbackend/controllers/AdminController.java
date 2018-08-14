@@ -38,21 +38,16 @@ public class AdminController {
 		}
 		return ResponseEntity.ok().body(ul);
 	}
-
-	@GetMapping("/all")
-	public ResponseEntity<List<UserLeave>> getAll() {
-		System.out.println("USERLEAVE/all HITTTTTTTTTTTTTT");
-		List<UserLeave> ul = userLeaveService.findAll();
-		if(ul.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		}
-		return ResponseEntity.ok().body(ul);
-	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<UserLeave>> getStatus(@RequestParam("status") LeaveStatus status) {
+	public ResponseEntity<List<UserLeave>> getStatus(@RequestParam(value="status", required=false) LeaveStatus status) {
 		System.out.println("USERLEAVE/all param HITTTTTTTTTTTTTT");
-		List<UserLeave> ul = userLeaveService.findByStatus(status);
+		List<UserLeave> ul;
+		if (status == null) {
+			ul = userLeaveService.findAll();
+		} else {
+			ul = userLeaveService.findByStatus(status);
+		}
 		if(ul.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}

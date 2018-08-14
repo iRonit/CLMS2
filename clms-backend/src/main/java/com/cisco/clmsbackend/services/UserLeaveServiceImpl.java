@@ -30,8 +30,8 @@ public class UserLeaveServiceImpl implements UserLeaveService{
 	}
 
 	@Override
-	public void saveUserLeave(UserLeave userLeave) {
-		userLeaveRepository.save(userLeave);
+	public UserLeave saveUserLeave(UserLeave userLeave) {
+		return userLeaveRepository.save(userLeave);
 	}
 
 	@Override

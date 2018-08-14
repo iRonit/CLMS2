@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,19 +31,16 @@ public class UserController {
 	@Autowired
 	private UserLeaveService userLeaveService;
 
-	@PostMapping("/")
-	public ResponseEntity<String> addUserLeave(@Valid @RequestBody final UserLeave userLeave, Errors errors) {
+	@PostMapping("")
+	public ResponseEntity<UserLeave> addUserLeave(@Valid @RequestBody final UserLeave userLeave) {
 		System.out.println("---------------->USERLEAVE/ADD Hit");
-
-		if (errors.hasErrors()) {
-			return ResponseEntity.badRequest().build();
-		}
+		
 		//Cannot have status and remark set by user
 		userLeave.setStatus(LeaveStatus.PENDING);
 		userLeave.setRemark(null);
 		
-		userLeaveService.saveUserLeave(userLeave);
-		return ResponseEntity.ok().build();
+		UserLeave ul = userLeaveService.saveUserLeave(userLeave);
+		return ResponseEntity.ok().body(ul);
 	}
 
 	@GetMapping("/{username}")
@@ -56,7 +54,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateUserLeave(@PathVariable final String id, 
+	public ResponseEntity<UserLeave> updateUserLeave(@PathVariable final String id, 
 			@Valid @RequestBody UserLeave userLeave) throws JsonProcessingException {
 		UserLeave ul = userLeaveService.findUserLeaveById(Long.parseLong(id));
 		if (ul == null)
@@ -65,7 +63,7 @@ public class UserController {
 		ul.setToDate(userLeave.getToDate());
 		ul.setReason(userLeave.getReason());
 		userLeaveService.saveUserLeave(ul);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(ul);
 	}
 
 	@DeleteMapping("/{id}")
@@ -73,7 +71,7 @@ public class UserController {
 		if(userLeaveService.findUserLeaveById(Long.parseLong(id)).getStatus() == LeaveStatus.PENDING)
 			userLeaveService.deleteUserLeaveById(Long.parseLong(id));
 		else
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
 		return ResponseEntity.ok().build();
 	}
 

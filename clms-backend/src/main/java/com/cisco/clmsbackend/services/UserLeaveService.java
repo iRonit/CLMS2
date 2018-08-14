@@ -7,7 +7,7 @@ import com.cisco.clmsbackend.models.UserLeave;
 
 public interface UserLeaveService {
 	public List<UserLeave> findUserLeaveByUsername(String username);
-	public void saveUserLeave(UserLeave userLeave);
+	public UserLeave saveUserLeave(UserLeave userLeave);
 	public List<UserLeave> findAll();
 	public UserLeave findUserLeaveById(long id);
 	public void deleteUserLeaveById(long id);
