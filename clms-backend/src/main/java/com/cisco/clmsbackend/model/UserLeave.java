@@ -1,4 +1,4 @@
-package com.cisco.clmsbackend.models;
+package com.cisco.clmsbackend.model;
 
 import java.util.Date;
 

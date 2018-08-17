@@ -1,4 +1,4 @@
-package com.cisco.clmsbackend.configurations;
+package com.cisco.clmsbackend.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cisco.clmsbackend.models.LeaveStatus;
-import com.cisco.clmsbackend.models.UserLeave;
-import com.cisco.clmsbackend.services.UserLeaveService;
+import com.cisco.clmsbackend.model.LeaveStatus;
+import com.cisco.clmsbackend.model.UserLeave;
+import com.cisco.clmsbackend.service.UserLeaveService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired

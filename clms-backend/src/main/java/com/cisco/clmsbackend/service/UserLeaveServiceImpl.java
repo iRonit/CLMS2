@@ -1,4 +1,4 @@
-package com.cisco.clmsbackend.services;
+package com.cisco.clmsbackend.service;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cisco.clmsbackend.models.LeaveStatus;
-import com.cisco.clmsbackend.models.UserLeave;
-import com.cisco.clmsbackend.repositories.UserLeaveRepository;
+import com.cisco.clmsbackend.model.LeaveStatus;
+import com.cisco.clmsbackend.model.UserLeave;
+import com.cisco.clmsbackend.repository.UserLeaveRepository;
 
 @Service("userLeaveService")
 public class UserLeaveServiceImpl implements UserLeaveService{

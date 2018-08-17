@@ -1,4 +1,4 @@
-package com.cisco.clmsbackend.repositories;
+package com.cisco.clmsbackend.repository;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cisco.clmsbackend.models.LeaveStatus;
-import com.cisco.clmsbackend.models.UserLeave;
+import com.cisco.clmsbackend.model.LeaveStatus;
+import com.cisco.clmsbackend.model.UserLeave;
 
 @Repository("userRepository")
 public interface UserLeaveRepository extends JpaRepository<UserLeave, Long> {

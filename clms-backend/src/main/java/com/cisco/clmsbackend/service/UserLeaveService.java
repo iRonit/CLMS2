@@ -1,9 +1,9 @@
-package com.cisco.clmsbackend.services;
+package com.cisco.clmsbackend.service;
 
 import java.util.List;
 
-import com.cisco.clmsbackend.models.LeaveStatus;
-import com.cisco.clmsbackend.models.UserLeave;
+import com.cisco.clmsbackend.model.LeaveStatus;
+import com.cisco.clmsbackend.model.UserLeave;
 
 public interface UserLeaveService {
 	public List<UserLeave> findUserLeaveByUsername(String username);

@@ -1,4 +1,4 @@
-package com.cisco.clmsbackend.models;
+package com.cisco.clmsbackend.model;
 
 public enum LeaveStatus {
 	PENDING, APPROVED, REJECTED

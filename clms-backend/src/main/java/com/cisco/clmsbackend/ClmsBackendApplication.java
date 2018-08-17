@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages="com.cisco.clmsbackend.repositories")
+@EnableJpaRepositories(basePackages="com.cisco.clmsbackend.repository")
 @EnableJpaAuditing
 public class ClmsBackendApplication {
 
