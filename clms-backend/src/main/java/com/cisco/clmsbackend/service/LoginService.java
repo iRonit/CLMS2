@@ -1,8 +1,10 @@
 package com.cisco.clmsbackend.service;
 
+import java.util.List;
+
 public interface LoginService {
 
-	public String authenticate(String username, String password);
+	public List<String> authenticate(String username, String password);
 	public boolean authenticateLDAP(String username, String password);
-	public String getJWT(String username);
+	public List<String> getCompoundedJWT(String username);
 }

@@ -1,5 +1,7 @@
 package com.cisco.clmsbackend.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class LoginController {
 	@PostMapping("/auth")
 	public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
 		System.out.println("LOGIN HITTTTTTTTTTTTTT");
-		String jwt = loginService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+		List<String> jwt = loginService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 		if(jwt != null) {
 			return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 		} else {

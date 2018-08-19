@@ -1,11 +1,15 @@
 package com.cisco.clmsbackend.payload;
 
+import java.util.List;
+
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
+    private String role;
 
-    public JwtAuthenticationResponse(String accessToken) {
-        this.accessToken = accessToken;
+	public JwtAuthenticationResponse(List<String> compoundedToken) {
+        this.accessToken = compoundedToken.get(0);
+        this.role = compoundedToken.get(1);
     }
 
     public String getAccessToken() {
@@ -23,4 +27,12 @@ public class JwtAuthenticationResponse {
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
     }
+    
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 }

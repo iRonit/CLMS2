@@ -2,6 +2,7 @@ package com.cisco.clmsbackend.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.naming.directory.DirContext;
@@ -41,11 +42,11 @@ public class LoginServiceImpl implements LoginService {
     private AdminRepository adminRepository;
 	
 	@Override
-	public String authenticate(String username, String password) {
+	public List<String> authenticate(String username, String password) {
 		System.out.println("-----------------> authenticateLDAP");
 		if(authenticateLDAP(username, password)) {
 			System.out.println("--------------------> authenticateLDAP -> true");
-			return getJWT(username);
+			return getCompoundedJWT(username);
 		}
 		return null;
 	}
@@ -68,7 +69,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String getJWT(String username) {
+	public List<String> getCompoundedJWT(String username) {
 		System.out.println("Encrypted password: " + (new BCryptPasswordEncoder()).encode(""));
 		Set<GrantedAuthority> authorities;
 		if(adminRepository.findByUsername(username) == null) {
@@ -82,7 +83,7 @@ public class LoginServiceImpl implements LoginService {
 		+ " ---> " + authentication.getName());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		System.out.println("SecurityContrextHolder.getContext()");
-		return tokenProvider.generateToken(authentication);
+		return tokenProvider.generateCompoundedToken(authentication);
 	}
 
 }

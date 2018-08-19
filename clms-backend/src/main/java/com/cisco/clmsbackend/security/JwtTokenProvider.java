@@ -1,6 +1,8 @@
 package com.cisco.clmsbackend.security;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -25,7 +27,7 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
-    public String generateToken(Authentication authentication) {
+    public List<String> generateCompoundedToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
@@ -33,12 +35,16 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(userPrincipal.getUsername());
         claims.put("role", userPrincipal.getAuthorities());
 
-        return Jwts.builder()
+        List<String> compoundedToken = new ArrayList<>();
+        compoundedToken.add(Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+                .compact());
+        compoundedToken.add(userPrincipal.getAuthorities().toString());
+        
+        return compoundedToken;
     }
 
     public String getUsernameFromJWT(String token) {
