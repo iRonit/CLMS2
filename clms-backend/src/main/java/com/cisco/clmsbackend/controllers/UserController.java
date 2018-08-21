@@ -34,11 +34,11 @@ public class UserController {
 	@PostMapping("")
 	public ResponseEntity<UserLeave> addUserLeave(@Valid @RequestBody final UserLeave userLeave) {
 		System.out.println("---------------->USERLEAVE/ADD Hit");
-		
-		//Cannot have status and remark set by user
+
+		// Cannot have status and remark set by user
 		userLeave.setStatus(LeaveStatus.PENDING);
 		userLeave.setRemark(null);
-		
+
 		UserLeave ul = userLeaveService.saveUserLeave(userLeave);
 		return ResponseEntity.ok().body(ul);
 	}
@@ -47,7 +47,7 @@ public class UserController {
 	public ResponseEntity<List<UserLeave>> getUserLeave(@PathVariable final String username) {
 		System.out.println("USERLEAVE/{username} HITTTTTTTTTTTTTT");
 		List<UserLeave> ul = userLeaveService.findUserLeaveByUsername(username);
-		if(ul.isEmpty()) {
+		if (ul.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(ul);
@@ -59,6 +59,8 @@ public class UserController {
 		UserLeave ul = userLeaveService.findUserLeaveById(Long.parseLong(id));
 		if (ul == null)
 			return ResponseEntity.notFound().build();
+		if (ul.getStatus() == LeaveStatus.APPROVED || ul.getStatus() == LeaveStatus.REJECTED)
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
 		ul.setFromDate(userLeave.getFromDate());
 		ul.setToDate(userLeave.getToDate());
 		ul.setReason(userLeave.getReason());
@@ -68,7 +70,7 @@ public class UserController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> removeUserLeave(@PathVariable final String id) {
-		if(userLeaveService.findUserLeaveById(Long.parseLong(id)).getStatus() == LeaveStatus.PENDING)
+		if (userLeaveService.findUserLeaveById(Long.parseLong(id)).getStatus() == LeaveStatus.PENDING)
 			userLeaveService.deleteUserLeaveById(Long.parseLong(id));
 		else
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
